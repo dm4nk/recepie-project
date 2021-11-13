@@ -6,28 +6,18 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Recipe {
+public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String description;
-    Integer prepTime;
-    Integer cookTime;
-    Integer servings;
-    String source;
-    String url;
-    String directions;
-    @Lob
-    Byte[] image;
-    @OneToOne(cascade = CascadeType.ALL)
-    Notes notes;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    Set<Ingredient> ingredients;
+    String amount;
+    @ManyToOne
+    Recipe recipe;
 }
