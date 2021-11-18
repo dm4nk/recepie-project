@@ -4,7 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 
@@ -13,18 +13,13 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Ingredient {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @NonNull
     String description;
     @NonNull
-    BigDecimal amount;
-    @NonNull
-    @ManyToOne
-    Recipe recipe;
-    @NonNull
-    @OneToOne(fetch = FetchType.EAGER)
-    UnitOfMeasure uom;
+    @ManyToMany(mappedBy = "categories")
+    Set<Recipe> recipes;
 }
