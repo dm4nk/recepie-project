@@ -21,7 +21,6 @@ public class Ingredient {
     String description;
     @NonNull
     BigDecimal amount;
-    @NonNull
     @ManyToOne
     Recipe recipe;
     @NonNull
