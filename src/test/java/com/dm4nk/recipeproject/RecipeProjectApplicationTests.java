@@ -11,10 +11,4 @@ class RecipeProjectApplicationTests {
     @Test
     void contextLoads() {
     }
-
-    @Test
-    public void failTest(){
-        assertEquals(1, 2);
-    }
-
 }
