@@ -31,17 +31,18 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         recipeRepository.saveAll(getRecipes());
-        log.debug("Loading bootstrap data");
     }
 
     private List<Recipe> getRecipes() {
+
+        log.debug("Loading data");
 
         List<Recipe> recipes = new ArrayList<>(2);
 
         //get UOMs
         Optional<UnitOfMeasure> eachUomOptional = unitOfMeasureRepository.findByDescription("Each");
 
-        if(eachUomOptional.isEmpty()){
+        if (eachUomOptional.isEmpty()) {
             throw new RuntimeException("Expected UOM Not Found");
         }
 
@@ -209,6 +210,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         tacosRecipe.setSource("Source");
 
         recipes.add(tacosRecipe);
+        log.debug("Loaded data");
         return recipes;
     }
 }
