@@ -22,7 +22,7 @@ public class IngredientCommandToIngredient implements Converter<IngredientComman
                 .id(source.getId())
                 .description(source.getDescription())
                 .amount(source.getAmount())
-                .uom(uomConverter.convert(source.getUnitOfMeasure()))
+                .uom(uomConverter.convert(source.getUom()))
                 .build();
     }
 }
