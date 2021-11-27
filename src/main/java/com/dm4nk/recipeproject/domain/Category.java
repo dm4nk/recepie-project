@@ -10,16 +10,20 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @NonNull
     String description;
-    @NonNull
     @ManyToMany(mappedBy = "categories")
     Set<Recipe> recipes;
+
+    public Category(String description, Set<Recipe> recipes) {
+        this.description = description;
+        this.recipes = recipes;
+    }
 }

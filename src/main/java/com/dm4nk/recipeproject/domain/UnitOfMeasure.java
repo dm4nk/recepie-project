@@ -12,13 +12,17 @@ import javax.persistence.Id;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UnitOfMeasure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @NonNull
     String description;
+
+    public UnitOfMeasure(String description) {
+        this.description = description;
+    }
 }

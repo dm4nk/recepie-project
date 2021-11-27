@@ -1,11 +1,15 @@
 package com.dm4nk.recipeproject.services;
 
+import com.dm4nk.recipeproject.converters.RecipeCommandToRecipe;
+import com.dm4nk.recipeproject.converters.RecipeToRecipeCommand;
 import com.dm4nk.recipeproject.domain.Recipe;
 import com.dm4nk.recipeproject.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -15,24 +19,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class RecipeServiceImplTest {
 
-    RecipeServiceImpl recipeService;
     @Mock
     RecipeRepository recipeRepository;
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
+    @InjectMocks
+    RecipeServiceImpl recipeService;
     Recipe recipe;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-
-        recipeService = new RecipeServiceImpl(recipeRepository);
-
         recipe = new Recipe();
         recipe.setId(1L);
-        HashSet<Recipe> data = new HashSet<>();
-        data.add(recipe);
-        when(recipeRepository.findAll()).thenReturn(data);
     }
 
     @Test
@@ -50,6 +54,9 @@ class RecipeServiceImplTest {
 
     @Test
     void getRecipe() {
+        HashSet<Recipe> data = new HashSet<>();
+        data.add(recipe);
+        when(recipeRepository.findAll()).thenReturn(data);
 
         Set<Recipe> recipeSet = recipeService.getRecipe();
 

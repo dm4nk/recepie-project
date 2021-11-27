@@ -9,17 +9,21 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Notes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @NonNull
     @OneToOne
     Recipe recipe;
-    @NonNull
     @Lob
     String recipeNotes;
+
+    public Notes(Recipe recipe, String recipeNotes) {
+        this.recipe = recipe;
+        this.recipeNotes = recipeNotes;
+    }
 }
