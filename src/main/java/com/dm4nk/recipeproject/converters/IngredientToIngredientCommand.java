@@ -20,6 +20,7 @@ public class IngredientToIngredientCommand implements Converter<Ingredient, Ingr
     public IngredientCommand convert(Ingredient source) {
         return source == null ? null : IngredientCommand.builder()
                 .id(source.getId())
+                .recipeId(source.getRecipe() == null ? null : source.getRecipe().getId())
                 .description(source.getDescription())
                 .amount(source.getAmount())
                 .uom(uomConverter.convert(source.getUom()))
