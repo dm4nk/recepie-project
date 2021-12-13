@@ -1,6 +1,8 @@
 package com.dm4nk.recipeproject.controllers;
 
 import com.dm4nk.recipeproject.commands.IngredientCommand;
+import com.dm4nk.recipeproject.commands.RecipeCommand;
+import com.dm4nk.recipeproject.commands.UnitOfMeasureCommand;
 import com.dm4nk.recipeproject.services.IngredientService;
 import com.dm4nk.recipeproject.services.RecipeService;
 import com.dm4nk.recipeproject.services.UnitOfMeasureService;
@@ -29,6 +31,24 @@ public class IngredientController {
         log.debug("Getting ingredient list for recipe id: " + id);
         model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
         return "recipe/ingredient/list";
+    }
+
+    @GetMapping
+    @RequestMapping("/recipe/{id}/ingredient/new")
+    public String NewIngredientForm(@PathVariable String id, Model model) {
+        //todo raice exeption if null
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(id));
+
+        IngredientCommand ingredientCommand = IngredientCommand.builder()
+                .uom(new UnitOfMeasureCommand())
+                .recipeId(Long.valueOf(id))
+                .build();
+
+        model.addAttribute("ingredient", ingredientCommand);
+
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientform";
     }
 
     @GetMapping

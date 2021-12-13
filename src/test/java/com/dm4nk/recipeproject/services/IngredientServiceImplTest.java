@@ -1,12 +1,14 @@
 package com.dm4nk.recipeproject.services;
 
 import com.dm4nk.recipeproject.commands.IngredientCommand;
+import com.dm4nk.recipeproject.commands.UnitOfMeasureCommand;
 import com.dm4nk.recipeproject.converters.IngredientCommandToIngredient;
 import com.dm4nk.recipeproject.converters.IngredientToIngredientCommand;
 import com.dm4nk.recipeproject.converters.UnitOfMeasureCommandToUnitOfMeasure;
 import com.dm4nk.recipeproject.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import com.dm4nk.recipeproject.domain.Ingredient;
 import com.dm4nk.recipeproject.domain.Recipe;
+import com.dm4nk.recipeproject.domain.UnitOfMeasure;
 import com.dm4nk.recipeproject.repositories.RecipeRepository;
 import com.dm4nk.recipeproject.repositories.UnitOfMeasureRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,7 +39,6 @@ public class IngredientServiceImplTest {
 
     IngredientService ingredientService;
 
-    //init converters
     public IngredientServiceImplTest() {
         this.ingredientToIngredientCommand = new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
         this.ingredientCommandToIngredient = new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure());
@@ -44,7 +46,7 @@ public class IngredientServiceImplTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
 
         ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient,
                 recipeRepository, unitOfMeasureRepository);
@@ -88,15 +90,27 @@ public class IngredientServiceImplTest {
 
     @Test
     public void testSaveRecipeCommand() throws Exception {
+        String description = "1";
+        BigDecimal amount = new BigDecimal(1);
+        UnitOfMeasure unitOfMeasure = UnitOfMeasure.builder().id(1L).build();
+        UnitOfMeasureCommand unitOfMeasureCommand = UnitOfMeasureCommand.builder().id(1L).build();
         //given
         IngredientCommand command = new IngredientCommand();
         command.setId(3L);
         command.setRecipeId(2L);
+        command.setAmount(amount);
+        command.setDescription(description);
+        command.setUom(unitOfMeasureCommand);
 
         Optional<Recipe> recipeOptional = Optional.of(new Recipe());
 
         Recipe savedRecipe = new Recipe();
-        savedRecipe.addIngredient(new Ingredient());
+        savedRecipe.addIngredient(Ingredient.builder()
+                .recipe(savedRecipe)
+                .amount(amount)
+                .description(description)
+                .uom(unitOfMeasure)
+                .build());
         savedRecipe.getIngredients().iterator().next().setId(3L);
 
         when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
@@ -109,6 +123,5 @@ public class IngredientServiceImplTest {
         assertEquals(Long.valueOf(3L), savedCommand.getId());
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, times(1)).save(any(Recipe.class));
-
     }
 }
