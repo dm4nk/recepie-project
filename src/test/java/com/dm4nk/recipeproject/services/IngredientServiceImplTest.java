@@ -15,7 +15,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
@@ -37,7 +36,7 @@ public class IngredientServiceImplTest {
     @Mock
     UnitOfMeasureRepository unitOfMeasureRepository;
 
-    IngredientService ingredientService;
+    IngredientServiceImpl ingredientService;
 
     public IngredientServiceImplTest() {
         this.ingredientToIngredientCommand = new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
@@ -46,8 +45,6 @@ public class IngredientServiceImplTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        MockitoAnnotations.openMocks(this);
-
         ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient,
                 recipeRepository, unitOfMeasureRepository);
     }
