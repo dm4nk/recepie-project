@@ -44,6 +44,7 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
                 .description(source.getDescription())
                 .difficulty(source.getDifficulty())
                 .directions(source.getDirections())
+                .image(source.getImage())
                 .servings(source.getServings())
                 .source(source.getSource())
                 .url(source.getUrl())
