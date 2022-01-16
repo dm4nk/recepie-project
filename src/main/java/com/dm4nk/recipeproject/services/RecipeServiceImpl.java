@@ -4,6 +4,7 @@ import com.dm4nk.recipeproject.commands.RecipeCommand;
 import com.dm4nk.recipeproject.converters.RecipeCommandToRecipe;
 import com.dm4nk.recipeproject.converters.RecipeToRecipeCommand;
 import com.dm4nk.recipeproject.domain.Recipe;
+import com.dm4nk.recipeproject.exeptions.NotFoundExeption;
 import com.dm4nk.recipeproject.repositories.RecipeRepository;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -38,7 +40,12 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe findById(Long id) {
-        return recipeRepository.findById(id).orElse(null);
+        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
+
+        if (recipeOptional.isEmpty())
+            throw new NotFoundExeption("Recipe not found for id " + id);
+
+        return recipeOptional.get();
     }
 
     @Override
