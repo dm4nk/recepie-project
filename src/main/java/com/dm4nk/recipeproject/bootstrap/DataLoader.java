@@ -12,6 +12,11 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +35,14 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        recipeRepository.saveAll(getRecipes());
+        try {
+            recipeRepository.saveAll(getRecipes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private List<Recipe> getRecipes() {
+    private List<Recipe> getRecipes() throws IOException {
 
         log.debug("Loading data");
 
@@ -147,6 +156,19 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         guacRecipe.setUrl("http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvoun5ws");
         guacRecipe.setSource("Source");
 
+        //set image
+        BufferedImage bImageGuac = ImageIO.read(new File("src/main/resources/static/images/guacamole400x400.jpg"));
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ImageIO.write(bImageGuac, "jpg", bos);
+        byte[] dataGuac = bos.toByteArray();
+
+        Byte[] dataWrappedGuac = new Byte[dataGuac.length];
+        int i = 0;
+        for (byte b : dataGuac)
+            dataWrappedGuac[i++] = b;
+
+        guacRecipe.setImage(dataWrappedGuac);
+
         //add to return list
         recipes.add(guacRecipe);
 
@@ -208,6 +230,17 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         tacosRecipe.setUrl("http://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/#ixzz4jvu7Q0MJ");
         tacosRecipe.setSource("Source");
+
+        //setting image
+        BufferedImage bImageTacos = ImageIO.read(new File("src/main/resources/static/images/tacos400x400.jpg"));
+        ImageIO.write(bImageTacos, "jpg", bos);
+        byte[] dataTacos = bos.toByteArray();
+
+        Byte[] dataWrappedTacos = new Byte[dataTacos.length];
+        i = 0;
+        for (byte b : dataTacos)
+            dataWrappedTacos[i++] = b;
+        tacosRecipe.setImage(dataWrappedTacos);
 
         recipes.add(tacosRecipe);
         log.debug("Loaded data");
