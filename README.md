@@ -28,13 +28,13 @@ Maven plugins, Caching, Validation, Tests, HTML and CSS
 9. Navigate to http://localhost:8080 with your browser
 
 ### Index page
-https://user-images.githubusercontent.com/80630476/149791079-2664881b-7667-439b-baf7-0849db2347e3.png
+![Index page](https://user-images.githubusercontent.com/80630476/149791079-2664881b-7667-439b-baf7-0849db2347e3.png)
 
 ### View recipe
-https://user-images.githubusercontent.com/80630476/149794454-2b688779-173e-4031-9d7d-e0b484f8ea1b.png
+![View recipe](https://user-images.githubusercontent.com/80630476/149794454-2b688779-173e-4031-9d7d-e0b484f8ea1b.png)
 
 ### Update recipe
-https://user-images.githubusercontent.com/80630476/149794000-eb42170e-e130-4e0d-b756-49a557e01de7.png
+![Update recipe](https://user-images.githubusercontent.com/80630476/149794000-eb42170e-e130-4e0d-b756-49a557e01de7.png)
 
 ### List ingredients
-https://user-images.githubusercontent.com/80630476/149794302-25cf744d-3d58-46a5-b1e4-1c497fdacfa0.png
+![List ingredients](https://user-images.githubusercontent.com/80630476/149794302-25cf744d-3d58-46a5-b1e4-1c497fdacfa0.png)
