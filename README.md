@@ -34,7 +34,7 @@ Maven plugins, Caching, Validation, Tests, HTML and CSS
 ![View recipe](https://user-images.githubusercontent.com/80630476/149794454-2b688779-173e-4031-9d7d-e0b484f8ea1b.png)
 
 ### Update recipe
-![Update recipe](https://user-images.githubusercontent.com/80630476/149794000-eb42170e-e130-4e0d-b756-49a557e01de7.png)
+![Update recipe](https://user-images.githubusercontent.com/80630476/149795192-84e90388-81ad-4315-a818-5af7d140a131.png)
 
 ### List ingredients
 ![List ingredients](https://user-images.githubusercontent.com/80630476/149794302-25cf744d-3d58-46a5-b1e4-1c497fdacfa0.png)
